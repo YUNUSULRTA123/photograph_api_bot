@@ -1,0 +1,2 @@
+TELEGRAM_BOT_TOKEN = "8333594611:AAF2oc-A1GIUyu9ivt4c-XqqF-OX3OaTfp0"
+REVE_API_KEY = "papi.1b368fe2-e5d1-49c8-918d-bcda46d418ad.Fm4ByYpwa_CrEd6rSgVLyslo5gfrnXeZ"
