@@ -29,3 +29,9 @@ pip install pyTelegramBotAPI requests
 TELEGRAM_BOT_TOKEN = "ВАШ_ТОКЕН_ОТ_BOTFATHER"
 REVE_API_KEY = "ВАШ_API_КЛЮЧ_ОТ_REVE"
 ```
+
+### 3. Запуск
+Запустите бота командой:
+```python
+python main.py
+```
