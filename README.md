@@ -27,4 +27,5 @@ pip install pyTelegramBotAPI requests
 ```python
 # config.py
 TELEGRAM_BOT_TOKEN = "ВАШ_ТОКЕН_ОТ_BOTFATHER"
-REVE_API_KEY = "ВАШ_API_КЛЮЧ_ОТ_REVE"```
+REVE_API_KEY = "ВАШ_API_КЛЮЧ_ОТ_REVE"
+```
