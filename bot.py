@@ -1,9 +1,10 @@
 import logging
 import requests
 import base64
+import os
+import time
 
 import telebot
-
 from config import TELEGRAM_BOT_TOKEN, REVE_API_KEY
 
 logging.basicConfig(level=logging.INFO)
@@ -47,20 +48,28 @@ reve_api = ReveAPI(REVE_API_KEY)
 
 # ================== HANDLERS ==================
 
-@bot.message_handler(commands=["start"])
-def start(message):
+@bot.message_handler(commands=["start", "help"])
+def start_help(message):
     bot.send_message(
         message.chat.id,
-        "👋 Привет!\n"
-        "Отправь мне текст, и я сгенерирую изображение."
+        "👋 Привет!\n\n"
+        "🤖 Я бот для генерации изображений.\n"
+        "✍️ Просто отправь мне текст — я превращу его в картинку.\n\n"
+        "Пример:\n"
+        "`Космический кот в скафандре`",
+        parse_mode="Markdown"
     )
 
 @bot.message_handler(content_types=["text"])
 def generate_image_handler(message):
-    bot.send_message(
+    # Сообщение о генерации
+    status_message = bot.send_message(
         message.chat.id,
-        "🎨 Генерирую изображение, подожди..."
+        "🎨 Генерирую картинку..."
     )
+
+    # Эффект печати
+    bot.send_chat_action(message.chat.id, "typing")
 
     try:
         result = reve_api.generate_image(message.text)
@@ -77,6 +86,15 @@ def generate_image_handler(message):
 
         with open(image_path, "rb") as photo:
             bot.send_photo(message.chat.id, photo)
+
+        # Удаляем сообщение "Генерирую..."
+        bot.delete_message(
+            message.chat.id,
+            status_message.message_id
+        )
+
+        # Удаляем файл с компьютера
+        os.remove(image_path)
 
     except Exception as e:
         bot.send_message(
